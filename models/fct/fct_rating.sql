@@ -9,6 +9,7 @@
 with src_ratings as (
     select * from {{ ref('src_rating') }}
 )
+
 select 
     user_id,
     movie_id,
