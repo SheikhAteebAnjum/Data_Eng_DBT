@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: dim_movies
+    description: "This model contains metadata for cleaned movie data."
+    columns:
+      - name: movie_id
+        description: "Primary key of the movie."
+        tests:
+          - not_null
+      - name: movie_title
+        description: "Title of the movie."
+        tests:
+          - not_null
+      - name: genre_array
+        description: "List of genres in array format."
+      - name: genre
+        description: "Raw genre string from source."
+
+  - name: dim_user
+    description: "This model contains data about users."
+    columns:
+      - name: user_id
+        description: "This column contains user id."
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_ratings
+    description: "This model contains ratings of the movies."
+    columns:
+      - name: user_id
+        description: "This column contains user id."
+        tests:
+          - not_null
+      - name: movie_id
+        description: "This column contains the movie name or ID (consider renaming for clarity)."
+        tests:
+          - not_null
+
+  - name: fct_genome_scores
+    description: "This model contains fct_table of relevance score per movie and tag."
+    columns:
+      - name: movie_id
+        description: "Foreign key to dim_movies."
+        tests:
+          - not_null
+      - name: tag_id
+        description: "Foreign key to dim_genome_tags."
+        tests:
+          - not_null
+      - name: relevance_score
+        description: "Relevance score (0 to 1) for tag association."
+        tests:
+          - not_null
